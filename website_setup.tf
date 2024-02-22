@@ -11,7 +11,7 @@ resource "aws_vpc" "main" {
 
 # Create subnet
 resource "aws_subnet" "public" {
-  vpc_id                  = aws_vpc.main.id
+  vpc_id                  = vpc-0d84b6be205e562f0
   cidr_block              = "10.0.1.0/24"
   availability_zone       = "eu-central-1" 
   map_public_ip_on_launch = true
@@ -20,7 +20,7 @@ resource "aws_subnet" "public" {
 # Create Security Group
 resource "aws_security_group" "web_sg" {
   name = "web_sg"
-  vpc_id = aws_vpc.main.id
+  vpc_id = vpc-0d84b6be205e562f0
 
   egress {
     from_port   = 0
@@ -39,7 +39,7 @@ resource "aws_security_group" "web_sg" {
 resource "aws_security_group" "allow_tls" {
   name        = "allow_tls"
   description = "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = vpc-0d84b6be205e562f0
   
   tags = {
     Name = "allow_tls"
