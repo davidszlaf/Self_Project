@@ -1,1 +1,22 @@
+name: TFSec Analysis
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tfsec_analysis:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Install tfsec
+      run: |
+        curl -L "$(curl -s https://api.github.com/repos/tfsec/tfsec/releases/latest | grep -o -E "https://.+?-linux-amd64")" -o /tmp/tfsec
+        sudo install -m 755 /tmp/tfsec /usr/local/bin/tfsec
+        
+    - name: Run tfsec
+      run: tfsec .
