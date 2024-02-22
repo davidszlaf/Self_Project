@@ -20,3 +20,11 @@ jobs:
         
     - name: Run tfsec
       run: tfsec .
+
+    - name: Install Trivy
+      run: |
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+        
+    - name: Run Trivy vulnerability scan
+      run: |
+        trivy --exit-code 1 --severity HIGH --no-progress .
